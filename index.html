@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LoLQuiz</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<link href="font.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+    <style>        
+        @-ms-viewport {
+            width: 100vw;
+            min-zoom: 100%;
+            zoom: 100%;
+        }
+        
+        @viewport {
+            width: 100vw;
+            min-zoom: 100% zoom: 100%;
+        }
+        
+        @-ms-viewport {
+            user-zoom: fixed;
+            min-zoom: 100%;
+        }
+        
+        @viewport {
+            user-zoom: fixed;
+            min-zoom: 100%;
+        }
+        /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+    </style>
+
+    <!-- See explanation at the bottom of this file for info regarding placement of JS libraries. -->
+    <!-- These library references (below) are just examples to give you the general idea... -->
+    <!-- <script src="mc/hammer.js"></script> -->
+    <!-- <script src="ft/fastclick.js"></script> -->
+    <!-- <script src="jq/jquery.js"></script> -->
+
+</head>
+
+
+<body>
+<div id="bardiv" class="bardiv shadow bardiv-closed" onclick="switchBar()">
+	<div class="kullanici">
+		<img id="kullaniciAvatar"/>
+		<div class="pointHolder">
+			<div id="currentPoint"></div>
+			Puan
+		</div>
+		<div id="kullaniciIsim"></div>
+		<div class="statistics">
+		<li><b>İstatistiklerim</b>
+		<li class="tPoint"><span id="tPoint"></span> &nbsp;&middot;&nbsp; Doğru Cevaplar</li>
+		<li class="fPoint"><span id="fPoint"></span> &nbsp;&middot;&nbsp; Yanlış Cevaplar</li>
+		<li class="pPoint"><span id="pPoint"></span> &nbsp;&middot;&nbsp; Pas Geçilenler</li>
+		<li class="hPoint"><span id="hPoint"></span> &nbsp;&middot;&nbsp; Haftalık Sıralama</li>
+		<li class="gPoint"><span id="gPoint"></span> &nbsp;&middot;&nbsp; Genel Sıralama</li>
+		</div>
+		<div id="menu">
+			<li onclick="hakkindaCover()">Hakkında</li>
+			<li class="cikis" onclick="getLogout()">Çıkış Yap</li>
+		</div>
+	</div>
+</div>
+<div id="cover" class="cover closed">
+<div id="dogru" class="dogru dogru-top"><img src="img/t.png"/><br/> Doğru Cevap</div>
+<div id="yanlis" class="yanlis yanlis-top"><img src="img/f.png"/><br/> Yanlış Cevap</div>
+	<div id="share">
+		<div class="ctitle">Soruyu Paylaş</div>
+		<div class="ctext">Sorunun cevabını bulamadınız mı? Sorunun ekran görüntüsünü alıp sosyal medyada paylaşarak arkadaşlarınızdan yardım isteyebilirsiniz.
+		</div>
+		<div class="cclose" id="coverClose" onclick="closeCover()">Sayfayı Kapat</div>
+	</div>
+	<div id="skortab">
+		<div id="skorlist" class="skorlist">
+		</div>
+	</div>
+	<div id="hakkinda">
+	</div>
+</div>
+
+<div id="game">
+<div class="header-carrier">
+	<div class="header">
+		<div class="menu" onclick="switchBar()" ><img src="svg/menu.svg"/></div>
+		<div class="logo">Stratera<b>Quiz</b></div>
+		<div id="skorO" class="right" onclick="skortabCover()"><img src="svg/skor.svg"/></div>
+		<div id="skorC" class="right" onclick="skortabClose()"><img src="svg/times.svg"/></div>
+	</div>
+	
+	<div class="resim"><img id="questionImage" src="img/jenerik/1.jpg" style="width:100%"/>
+	<div id="itemHolder"><img id="itemIcon" src=""/><div id="itemName"></div></div>
+	</div>
+</div>
+
+<div id="scroller" class="container">
+		<div id="questionText" class="soru">&nbsp;<br>&nbsp;</div>
+		<div class="secenekler">
+			<li id="c_1li" onclick="choice(1)" class="shadow-top"><img src="svg/blur2.svg"/> <span id="c_1">&nbsp;</span></li>
+			<li id="c_2li" onclick="choice(2)" class="shadow-top"><img src="svg/blur2.svg"/> <span id="c_2">&nbsp;</span></li>
+			<li id="c_3li" onclick="choice(3)" class="shadow-top"><img src="svg/blur2.svg"/> <span id="c_3">&nbsp;</span></li>
+			<li id="c_4li" onclick="choice(4)" class="shadow-top"><img src="svg/blur2.svg"/> <span id="c_4">&nbsp;</span></li>
+		</div>
+	
+	</div>
+<div class="subheader"> 
+	<li class="share" onclick="shareCover()"><img src="svg/share.svg"/> Paylaş</li>
+	<li onclick="skipQuestion()"><img src="svg/forward.svg"/> Pas Geç</li>
+</div>
+</div>
+<div id="login" style="width:100%;height:100%;">
+	<div class="header">
+		<div class="menu" onclick="switchBar()"><img src="svg/menu.svg"/></div>
+		<div class="logo">Stratera<b>Quiz</b></div>
+		<div class="right"><img src="svg/done.svg"/></div>
+	</div>
+	<div class="resim" style="background:url(img/bg_main.jpg); background-size:cover;width:100%;height:100%; background-position:center; opacity:0.3">
+	</div>
+		<div class="title">Özenle hazırlanmış soruları ile League of Legends hakkındaki bilginizi sınayın!</div>
+		<div class="button" onclick="loginButton()">Facebook ile Giriş Yap
+		<div class="clear"></div>
+		</div>
+        <div class="button b2" onclick="loginNo()">Kayıtsız Giriş</div>
+</div>
+    <script src="cordova.js"></script>
+    <!-- "Phantom" cordova.js required for projects that use plugins -->
+
+    <script src="js/openfb.js"></script>
+	<script src="questionObj.js"></script>
+    <script src="auth.js"></script>
+    <script src="js/app.js"></script>
+    <!-- for your event code, see README and file comments for details -->
+    <script src="js/init-app.js"></script>
+    <!-- for your init code, see README and file comments for details -->
+    <script src="xdk/init-dev.js"></script>
+    <!-- normalizes device and document ready events, see file for details -->
+    <script src="js/util.js"></script>
+    <div>
+         <!-- createBanner() createInterstitial() -->
+ </div>
+
+</body>
+
+
+</html>

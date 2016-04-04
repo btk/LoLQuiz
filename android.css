@@ -1,0 +1,19 @@
+.bardiv { width:100%; }
+.bardiv-closed { left:-110%;}
+
+#itemHolder{ position:absolute; top:40%;width:%80; }
+
+.dogru { width:320px; }
+.yanlis { width:320px;}
+
+.subheader li{ padding:5px 0px; width:50%;}
+.subheader .share{padding:5px 0px; width:49%;}
+.subheader img{ position:relative; top:6px;}
+
+#menu  li{ padding:8px 0px; width:49%; }
+#menu  li.cikis{  width:49%;}
+
+.title { margin:auto; width:90%; }
+.button { margin-left:35px; width:80%; }
+
+.cclose { width:80%; margin-left:40px; }
